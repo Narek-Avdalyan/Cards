@@ -1,0 +1,62 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+
+#mainDiv{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.Card{
+    margin: 10px;
+    width: 366px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    height: 300px;
+}
+
+div{
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 17%;
+    box-shadow: 10px 17px
+}
+
+h1{
+    display: flex;
+    justify-content: center;
+    width: 20px;
+    margin-left: 20px;
+}
+
+p{
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+    margin: 7px 0px;
+}
+
+#newMainDivId{
+    position: absolute;
+    margin: 25% auto;
+    bottom: 0;
+}
+
+#newDiv{
+    margin: 10px;
+    width: 366px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+a{
+    text-decoration: none;
+    font-size: 20px;
+}
