@@ -5,6 +5,12 @@ const randomNumber =  () => {
     return Math.floor(Math.random() * 300);
 }
 
+const cardRemover = (element,button) => {
+    const deletable = document.getElementById(element.id-1);
+    deletable.remove();
+    button.remove();
+}
+
 const creatCard = (element,Card) => {
 
     const number = document.createElement("h1");
@@ -55,7 +61,6 @@ const newPage  = (acceptedId,main) =>{
     document.body.appendChild(newMainDiv);
 }
 
-
 const mainFunction = () => {
   fetch("https://jsonplaceholder.typicode.com/todos/")
   .then((Response) => {
@@ -94,9 +99,14 @@ const mainFunction = () => {
           Card.setAttribute("style",`background-color: rgb(${firstColor},${secondColor},${lastColor})`);
           Card.addEventListener("click",() => newPage(Card.id,main));
 
+          const button = document.createElement("button");
+          button.addEventListener("click",() => cardRemover(element,button));
+          button.innerHTML = "X";
+      
           creatCard(element,Card);
-  
+          
           main.appendChild(Card);
+          main.appendChild(button);
       
           document.body.appendChild(main);
       
