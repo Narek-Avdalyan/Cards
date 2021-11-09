@@ -1,7 +1,7 @@
 const usersArray = [];
 const colors = [];
 
-const randomNumber =  (a,b) => {
+const randomNumber =  () => {
     return Math.floor(Math.random() * 300);
 }
 
@@ -10,8 +10,8 @@ const creatCard = (element,Card) => {
     const number = document.createElement("h1");
     number.innerHTML = usersArray.indexOf(element)+1;
 
-    const ID = document.createElement("p");
-    ID.innerHTML = `Id: ${element.id}`;
+    const id = document.createElement("p");
+    id.innerHTML = `Id: ${element.id}`;
 
     const userId= document.createElement("p");
     userId.innerHTML = `userId: ${element.userId}`;
@@ -24,11 +24,37 @@ const creatCard = (element,Card) => {
 
     Card.appendChild(number);
     Card.appendChild(userId);
-    Card.appendChild(ID);
+    Card.appendChild(id);
     Card.appendChild(title);
     Card.appendChild(completed);
-    
 }
+
+const newPage  = (acceptedId,main) =>{
+
+    main.remove();
+    
+    const element = colors[acceptedId];
+
+    const newMainDiv = document.createElement('div');
+    newMainDiv.id = 'newMainDivId';
+
+    const arrayIndex = usersArray.findIndex((item) => item == usersArray[acceptedId]);
+    const pageDiv = document.createElement("div");
+    pageDiv.id = 'newDiv';
+    pageDiv.setAttribute("style",`background-color: rgb(${element.firstRgb},${element.secondRgb},${element.lastRgb})`);
+
+    const backButton = document.createElement("a");
+    backButton.setAttribute("href","index.html");
+    backButton.innerHTML = "back";
+
+    newMainDiv.appendChild(backButton);
+    newMainDiv.appendChild(pageDiv);
+
+    creatCard(usersArray[arrayIndex],pageDiv);
+
+    document.body.appendChild(newMainDiv);
+}
+
 
 const mainFunction = () => {
   fetch("https://jsonplaceholder.typicode.com/todos/")
@@ -46,7 +72,7 @@ const mainFunction = () => {
           });
       });
 
-     let main = document.createElement("main");
+     const main = document.createElement("main");
      main.id = "mainDiv";
      main.className = "mainClass";
       
@@ -64,9 +90,9 @@ const mainFunction = () => {
   
           const Card = document.createElement("div");
           Card.className = "Card";
-          Card.id = element.id;
+          Card.id = element.id - 1;
           Card.setAttribute("style",`background-color: rgb(${firstColor},${secondColor},${lastColor})`);
-          Card.addEventListener("click",() => cardPage(Card.id));
+          Card.addEventListener("click",() => newPage(Card.id,main));
 
           creatCard(element,Card);
   
@@ -79,31 +105,3 @@ const mainFunction = () => {
 }
 
 mainFunction();
-
-const cardPage  = (acceptedId) =>{
-    var paras = document.getElementsByClassName("mainClass");
-    while(paras[0]){
-    paras[0].parentNode.removeChild(paras[0]);
-    }
-    
-    const element = colors[acceptedId-1];
-
-    const newMainDiv = document.createElement('div');
-    newMainDiv.id = 'newMainDivId';
-
-    const ArrayIndwx = usersArray.findIndex((item) => item == usersArray[acceptedId-1]);
-    const pageDiv = document.createElement("div");
-    pageDiv.id = 'newDiv';
-    pageDiv.setAttribute("style",`background-color: rgb(${element.firstRgb},${element.secondRgb},${element.lastRgb})`);
-
-    const backButton = document.createElement("a");
-    backButton.setAttribute("href","index.html");
-    backButton.innerHTML = "back";
-
-    newMainDiv.appendChild(backButton);
-    newMainDiv.appendChild(pageDiv);
-
-    creatCard(usersArray[ArrayIndwx],pageDiv);
-
-    document.body.appendChild(newMainDiv);
-}
